@@ -29,6 +29,22 @@ func TestQueue(t *testing.T) {
 		}
 	})
 
+	t.Run("peek one", func(t *testing.T) {
+		v, err := queue.Peek()
+		check := []int{1}
+
+		if err != nil {
+			t.Fatalf("unexpected error %v", err)
+		}
+		if v != 1 {
+			t.Fatalf("got %d expected 1", v)
+		}
+
+		if err := checkQueue(queue, check); err != nil {
+			t.Fatal(err)
+		}
+	})
+
 	t.Run("push two", func(t *testing.T) {
 		queue.Push(2)
 		check := []int{1, 2}
@@ -65,6 +81,13 @@ func TestQueue(t *testing.T) {
 
 		if err := checkQueue(queue, check); err != nil {
 			t.Fatal(err)
+		}
+	})
+
+	t.Run("peek empty", func(t *testing.T) {
+		_, err := queue.Peek()
+		if !errors.Is(err, ErrQueueEmpty) {
+			t.Fatalf("expected empty queue error, got %v", err)
 		}
 	})
 

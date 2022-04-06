@@ -2,12 +2,12 @@ package gods
 
 import "errors"
 
-//Queue represents an abstract FIFO queue structure with push and pop operations.
+//Queue represents an abstract FIFO queue structure with push, pop, and peek operations.
 type Queue[T any] struct {
 	List[T]
 }
 
-//NewQueue returns an initialized queue with zero elements.
+//NewQueue returns a pointer to an initialized queue with zero elements.
 func NewQueue[T any]() *Queue[T] {
 	return &Queue[T]{}
 }
@@ -20,7 +20,7 @@ func (q *Queue[T]) Push(item T) {
 	q.InsertBack(item)
 }
 
-//Pop returns the item in the front of the queue, or an error if the queue is empty.
+//Pop removes and returns the item in the front of the queue, or `ErrQueueEmpty` if the queue is empty.
 func (q *Queue[T]) Pop() (T, error) {
 	var item T
 	if q.Front() == nil {
@@ -29,4 +29,14 @@ func (q *Queue[T]) Pop() (T, error) {
 	item = q.Front().Value
 	q.Remove(q.Front())
 	return item, nil
+}
+
+//Peek returns the item in the front of the queue without removing it, or `ErrQueueEmpty` if the queue is empty.
+func (q *Queue[T]) Peek() (T, error) {
+	if q.Front() == nil {
+		var item T
+		return item, ErrQueueEmpty
+	}
+
+	return q.Front().Value, nil
 }

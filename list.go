@@ -66,7 +66,7 @@ func (l *List[T]) InsertAfter(anchor *Node[T], val T) {
 	}
 }
 
-//InsertFront inserts a Node at the front of the List. It is equivalent to InsertAfter(nil, value).
+//InsertFront inserts a Node at the front of the List. It is equivalent to `InsertAfter(nil, value)`.
 func (l *List[T]) InsertFront(val T) {
 	l.InsertAfter(nil, val)
 }
@@ -96,12 +96,12 @@ func (l *List[T]) InsertBefore(anchor *Node[T], val T) {
 	}
 }
 
-//InsertBack inserts a Node at the back of the List. It is equivalent to InsertBefore(nil, value).
+//InsertBack inserts a Node at the back of the List. It is equivalent to `InsertBefore(nil, value)`.
 func (l *List[T]) InsertBack(val T) {
 	l.InsertBefore(nil, val)
 }
 
-//Remove removes the provided Node from the list. If the list is empty, ErrNilNode is returned.
+//Remove removes the provided Node from the list. If the list is empty, `ErrNilNode` is returned.
 func (l *List[T]) Remove(node *Node[T]) error {
 	if node == nil {
 		return ErrNilNode
